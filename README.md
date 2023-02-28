@@ -9,6 +9,5 @@ Students are expected to:
 Student Info
 =========================
 
-* Student Name: Phạm Trường Sơn
+* Student Name: Pham Truong Son
 * Student ID: BA11-086
-
