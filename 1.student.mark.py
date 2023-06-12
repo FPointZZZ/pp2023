@@ -1,94 +1,81 @@
-# Define global variables
-student_fields = ['ID', 'Name', 'DoB']
-course_fields = ['ID','Name']
-mark_fields = ['Student ID','Course ID', 'Mark']
-
-def display_menu():
-    print(" Welcome to Student Management System!\n Please choose an option as below: ")
-    print("0. Exit")
-    print("1. Add New Student")
-    print("2. Add Course")
-    print("3. Add Mark")
-    print("4. List Student")
-    print("5. List Course")
+students = []
+courses = []
+marks = []
 
 def add_student():
-    print("-------------------------")
-    print("Add Student Information")
-    global student_fields
-
-    student_data = []
-    for field in student_fields:
-        value = input("Enter " + field + ": ")
-        student_data.append(value)
-
-    print("Data saved successfully")
-    input("Press any key to continue")
-    return
-
+    id = input("Enter student ID: ")
+    name = input("Enter student name: ")
+    dob = input("Enter student date of birth: ")
+    students.append({'id': id, 'name': name, 'dob': dob})
+    print("Student added successfully!")
 
 def add_course():
-    print("-------------------------")
-    print("Add Course Information")
-    global course_fields
-    
-    course_data = []
-    for field in course_fields:
-        value = input("Enter " + field + ": ")
-        course_data.append(value)
-        
-    print("Data saved successfully")
-    input("Press any key to continue")
-    return
+    id = input("Enter course ID: ")
+    name = input("Enter course name: ")
+    courses.append({'id': id, 'name': name})
+    print("Course added successfully!")
 
-def add_mark():
-    print("-------------------------")
-    print("Add Student's Mark")
-    global mark_fields
-    
-    mark_data = []
-    for field in mark_fields:
-        value = input("Enter " + field + ": ")
-        marks[student_id,course_id] = mark
-        mark_data.append(value)
-    
-    print("Data saved successfully")
-    print("Press any key to continue")
+def add_marks():
+    student_id = input("Enter the student ID: ")
+    course_id = input("Enter the course ID: ")
+    student_marks = input("Enter the marks for the student: ")
+    marks[(student_id, course_id)] = student_marks
+    print("Marks added successfully!")
 
-def list_student():
-    global student_fields
+def list_courses():
+    print("Courses:")
+    for course in courses:
+        print(f"ID: {course['id']}, Name: {course['name']}")
 
-    for student in student_fields:
-        print(f"Student's ID: {student[0]}")
-        print(f"Student's Name: {student[1]}")
-        print(f"Student's DoB: {student[2]}")
-    input("Press any key to continue")
-    
-def list_course():
-    global course_fields
+def list_students():
+    print("Students:")
+    for student in students:
+        print(f"ID: {student['id']}, Name: {student['name']}")
 
-    for course in course_fields:
-        print(f"Course's ID: {course[0]}")
-        print(f"Course's Name: {course[1]}")
-    input("Press any key to continue")
+def show_marks():
+    course_id = input("Enter the course ID: ")
+    print(f"Marks for Course '{get_course_name(course_id)}':")
+    for student in students:
+        student_id = student['id']
+        if (student_id, course_id) in marks:
+            student_marks = marks[(student_id, course_id)]
+            print(f"Student ID: {student_id}, Name: {student['name']}, Marks: {student_marks}")
 
-while(True):
-    display_menu()
+def get_course_name(course_id):
+    for course in courses:
+        if course['id'] == course_id:
+            return course['name']
+    return None
 
-    choice = input("Enter your choice: ")
-    if choice == '1':
+def print_menu():
+    print("----- Student Mark Management Menu -----")
+    print("1. Add Student")
+    print("2. Add Course")
+    print("3. Add Marks")
+    print("4. List Courses")
+    print("5. List Students")
+    print("6. Show Student Marks for a Course")
+    print("0. Exit")
+
+# Example usage:
+while True:
+    print_menu()
+    option = input("Enter your choice: ")
+
+    if option == "1":
         add_student()
-    elif choice == '2':
+    elif option == "2":
         add_course()
-    elif choice == '3':
-        add_mark()
-    elif choice == '4':
-        list_student()
-    elif choice == '5':
-        list_course()
-    else:
+    elif option == "3":
+        add_marks()
+    elif option == "4":
+        list_courses()
+    elif option == "5":
+        list_students()
+    elif option == "6":
+        show_marks()
+    elif option == "0":
+        print("Exiting the program.")
         break
-
-print("-------------------------------")
-print(" Thank you for using our system")
-print("-------------------------------")
+    else:
+        print("Invalid option. Please try again.")
